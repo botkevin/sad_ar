@@ -133,13 +133,15 @@ def draw_cube(img, H):
 
 def draw (vid, points, p_world, draw_fn):
     new_frames = []
+    Hs = []
     for fi in tqdm(range(len(vid))):
         frame = vid[fi].copy()
         point = points[fi]
         if point.any():
             H = findPerspective (p_world, point)
+            Hs.append(H)
             new_frame = draw_fn (frame, H)
         else:
             new_frame = frame
         new_frames.append (new_frame)
-    return new_frames
+    return new_frames, Hs
